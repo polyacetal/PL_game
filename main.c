@@ -25,10 +25,9 @@ int main(void)
 	init_pair(7, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(8, COLOR_WHITE, COLOR_BLACK);
 	bkgd(COLOR_PAIR(8));
-
 	erase();
 	
-	for(y = 0; y < 20; y++){
+	for(y = 0; y < 20; y++){ //ステージ全体の2次元配列の初期化
 		field[y][0] = 8;
 		for(x = 1; x <11 ; x++){
 			field[y][x] = 0;
@@ -38,8 +37,13 @@ int main(void)
 	for(x = 0; x <12 ; x++){
 		field[20][x] = 8;
 	}
-	print_sc(field);
 
+	print_sc(field);
+	refresh();
+	timeout(-1);
+
+	i_mino(field, 0, 5);
+	print_sc(field);
 	refresh();
 
 	timeout(-1);

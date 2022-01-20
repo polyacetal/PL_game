@@ -2,10 +2,15 @@
 #include "screen.h"
 #include "game.h"
 
-void i_mino()
+int* i_mino(int (*field)[12], int y, int x)
 {
-	attron(COLOR_PAIR(1) | A_BOLD);
-	mvaddstr(5, 20, "■ ■ ■ ■ ");
+	int *list;
+	field[y][x-1] = 1;
+	field[y][x] = 1;
+	field[y][x+1] = 1;
+	field[y][x+2] = 1;
+	list = *field;
+	return(list);
 }
 
 void o_mino()
@@ -79,6 +84,7 @@ void field()
 		mvaddstr(j, 34, "■");
 	}
 }
+
 
 void draw()
 {

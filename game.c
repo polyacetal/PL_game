@@ -1,4 +1,6 @@
 #include <ncurses.h>
+#include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include "game.h"
@@ -33,3 +35,6 @@ void Print_sc(int (*field)[12]) //2次元配列をもとにフィールドを表
 	}
 }
 
+//void Game(){
+	
+//}

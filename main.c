@@ -56,7 +56,7 @@ int main(void)
 			Print_sc(field);
 			refresh();
 			timeout(-1);
-			getch();
+			if (getch() == 'q')break;
 
 			T_mino(field, 2, 5);
 			Print_sc(field);

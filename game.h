@@ -1,5 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
-extern int list_num(int (*list)[12], int y, int x);
-extern void print_sc(int(*field)[12]);
+#include "screen.h"
+extern int List_num(int (*list)[12], int y, int x);
+extern void* List_reset(int (*field)[12]);
+extern void Print_sc(int(*field)[12]);
 #endif

@@ -1,8 +1,9 @@
 #include <ncurses.h>
+#include <stdlib.h>
 #include "screen.h"
 #include "game.h"
 
-int* i_mino(int (*field)[12], int y, int x)
+void* I_mino(int (*field)[12], int y, int x) //リストにI型に1を配置しIミノを再現する
 {
 	int *list;
 	field[y][x-1] = 1;
@@ -10,52 +11,63 @@ int* i_mino(int (*field)[12], int y, int x)
 	field[y][x+1] = 1;
 	field[y][x+2] = 1;
 	list = *field;
-	return(list);
 }
 
-void o_mino()
+void* O_mino(int (*field)[12], int y, int x) //リストにO型に2を配置しOミノを再現する
 {
-	attron(COLOR_PAIR(2) | A_BOLD);
-	mvaddstr(8, 20, "■ ■ ");
-	mvaddstr(9, 20, "■ ■ " );
+	int *list;
+	field[y][x] = 2;
+	field[y][x + 1] = 2;
+	field[y + 1][x] = 2;
+	field[y + 1][x + 1] = 2;
 }
 
-void s_mino()
+void* S_mino(int (*field)[12], int y, int x) //リストにS型に3を配置しSミノを再現する
 {
-	attron(COLOR_PAIR(3) | A_BOLD);
-	mvaddstr(12, 22, "■ ■ ");
-	mvaddstr(13, 20, "■ ■ ");
+	int *list;
+	field[y][x] = 3;
+	field[y + 1][x] = 3;
+	field[y + 1][x + 1] = 3;
+	field[y + 2][x + 1] = 3;
 }
 
-void z_mino()
+void* Z_mino(int (*field)[12], int y, int x) //リストにZ型に4を配置しZミノを再現する
 {
-	attron(COLOR_PAIR(4) | A_BOLD);
-	mvaddstr(16, 20, "■ ■ ");
-	mvaddstr(17, 22, "■ ■ ");
+	int *list;
+	field[y][x] = 4;
+	field[y + 1][x] = 4;
+	field[y + 1][x - 1] = 4;
+	field[y + 2][x - 1] = 4;
 }
 
-void j_mino()
+void* J_mino(int (*field)[12], int y, int x) //リストにJ型に5を配置しJミノを再現する
 {
-	attron(COLOR_PAIR(5) | A_BOLD);
-	mvaddstr(20, 20, "■ ");
-	mvaddstr(21, 20, "■ ■ ■ ");
+	int *list;
+	field[y][x] = 5;
+	field[y + 1][x] = 5;
+	field[y + 2][x] = 5;
+	field[y + 2][x - 1] = 5;
 }
 
-void l_mino()
+void* L_mino(int (*field)[12], int y, int x) //リストにL型に6を配置しLミノを再現する
 {
-	attron(COLOR_PAIR(6) | A_BOLD);
-	mvaddstr(24, 24, "■ ");
-	mvaddstr(25, 20, "■ ■ ■ ");
+	int *list;
+	field[y][x] = 6;
+	field[y + 1][x] = 6;
+	field[y + 2][x] = 6;
+	field[y + 2][x + 1] = 6;
 }
 
-void t_mino()
+void* T_mino(int (*field)[12], int y, int x) //リストにT型に7を配置しTミノを再現する
 {
-	attron(COLOR_PAIR(7) | A_BOLD);
-	mvaddstr(28, 22, "■ ");
-	mvaddstr(29, 20, "■ ■ ■ ");
+	int *list;
+	field[y][x] = 7;
+	field[y + 1][x - 1] = 7;
+	field[y + 1][x] = 7;
+	field[y + 1][x + 1] = 7;
 }
 
-void mino(int type, int x, int y)
+void Mino(int type, int x, int y)
 {
 	x = x*2;
 	x = x+10;
@@ -69,25 +81,26 @@ void mino(int type, int x, int y)
 	}
 }
 
-void field()
+Size *Get()
 {
-	int i,j;
-	attron(COLOR_PAIR(8) | A_BOLD);
-	for(i = 0; i < 13; i++){
-		j = i*2 + 10;
-		mvaddstr(5, j, "■");
-		mvaddstr(26, j, "■");
-	}
-	for(i = 0; i < 20; i++){
-		j = i + 6;
-		mvaddstr(j, 10, "■");
-		mvaddstr(j, 34, "■");
-	}
+	Size *scr;
+	scr = (Size *)malloc(sizeof(Size));
+	if(scr == NULL) return(NULL);
+	getmaxyx(stdscr, scr->h, scr->w);
+	return(scr);
 }
 
-
-void draw()
+int Title(Size *scr)
 {
-	
+	int key;
+	if (scr == NULL) return('q');
+	erase();
+	attron(COLOR_PAIR(8) | A_BOLD);
+	mvaddstr((scr -> h)/2 - 4, (scr -> w)/2 - 12, "落ちリス(商標登録回避)");
+	refresh();
+	timeout(-1);
+	key = getch();
+	if(key == 'q') free(scr);
+	return(key);
 }
 

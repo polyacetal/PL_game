@@ -11,11 +11,15 @@ int main(void)
 {
 	setlocale(LC_ALL, "");
 	initscr();
-	int (*field)[12] = malloc(sizeof(int)*21*12);
-	int x, y;
+	int (*field)[12] = malloc(sizeof(int)*21*12); //21行12列の2次元配列を定義(フィールド20*10と縁)
+	int x, y; //フィールド配列の縦横の変数 縦がy,横がx
+	Size *scr;
 
-	start_color();
-	init_color(COLOR_ORANGE, 243, 152, 0);
+	noecho();
+	curs_set(0);
+
+	start_color(); //まとめて色の宣言,数字はtypeと同値
+	init_color(COLOR_ORANGE, 243, 152, 0); //オレンジの定義
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
@@ -38,16 +42,31 @@ int main(void)
 		field[20][x] = 8;
 	}
 
-	print_sc(field);
-	refresh();
-	timeout(-1);
 
-	i_mino(field, 0, 5);
-	print_sc(field);
-	refresh();
+	while(1){
+		scr = Get();
+		if (Title(scr) == 'q')break;
+		while(1){
+			Print_sc(field);
+			refresh();
+			timeout(-1);
+			getch();
 
-	timeout(-1);
-	getch();
+			O_mino(field, 0, 5);
+			Print_sc(field);
+			refresh();
+			timeout(-1);
+			getch();
+
+			T_mino(field, 2, 5);
+			Print_sc(field);
+			refresh();
+			timeout(-1);
+			getch();
+
+			List_reset(field);
+		}
+	}
 
 	endwin();
 	free(field);

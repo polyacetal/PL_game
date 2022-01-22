@@ -1,12 +1,16 @@
 #ifndef SCREEN_H
 #define SCREEN_H
-extern int* i_mino(int (*field)[12], int y, int x);
-extern void o_mino();
-extern void s_mino();
-extern void z_mino();
-extern void j_mino();
-extern void l_mino();
-extern void t_mino();
-extern void mino(int type, int x, int y);
-extern void field();
+typedef struct {
+	int w, h;
+} Size;
+extern void* I_mino(int (*field)[12], int y, int x);
+extern void* O_mino(int (*field)[12], int y, int x);
+extern void* S_mino(int (*field)[12], int y, int x);
+extern void* Z_mino(int (*field)[12], int y, int x);
+extern void* J_mino(int (*field)[12], int y, int x);
+extern void* L_mino(int (*field)[12], int y, int x);
+extern void* T_mino(int (*field)[12], int y, int x);
+extern void Mino(int type, int x, int y);
+extern Size *Get();
+extern int Title(Size *scr);
 #endif

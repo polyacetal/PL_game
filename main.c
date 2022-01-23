@@ -47,24 +47,7 @@ int main(void)
 		scr = Get();
 		if (Title(scr) == 'q')break;
 		while(1){
-			Print_sc(field);
-			refresh();
-			timeout(-1);
-			getch();
-
-			O_mino(field, 0, 5);
-			Print_sc(field);
-			refresh();
-			timeout(-1);
-			if (getch() == 'q')break;
-
-			T_mino(field, 2, 5);
-			Print_sc(field);
-			refresh();
-			timeout(-1);
-			getch();
-
-			List_reset(field);
+			if (Game(field) == 'q')break;
 		}
 	}
 

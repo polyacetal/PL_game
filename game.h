@@ -1,5 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
-extern int list_num(int (*list)[12], int y, int x);
-extern void print_sc(int(*field)[12]);
+#include "screen.h"
+#define FIELD int (*field)[12]
+extern int List_num(FIELD, int y, int x);
+extern void* List_reset(FIELD);
+extern void Print_sc(FIELD);
+extern void Random_mino(int random, FIELD, int y, int x, int type);
+extern int Game();
 #endif

@@ -11,11 +11,15 @@ int main(void)
 {
 	setlocale(LC_ALL, "");
 	initscr();
-	int (*field)[12] = malloc(sizeof(int)*21*12);
-	int x, y;
+	int (*field)[12] = malloc(sizeof(int)*21*12); //21行12列の2次元配列を定義(フィールド20*10と縁)
+	int x, y; //フィールド配列の縦横の変数 縦がy,横がx
+	Size *scr;
 
-	start_color();
-	init_color(COLOR_ORANGE, 243, 152, 0);
+	noecho();
+	curs_set(0);
+
+	start_color(); //まとめて色の宣言,数字はtypeと同値
+	init_color(COLOR_ORANGE, 243, 152, 0); //オレンジの定義
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 	init_pair(2, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
@@ -25,10 +29,9 @@ int main(void)
 	init_pair(7, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(8, COLOR_WHITE, COLOR_BLACK);
 	bkgd(COLOR_PAIR(8));
-
 	erase();
 	
-	for(y = 0; y < 20; y++){
+	for(y = 0; y < 20; y++){ //ステージ全体の2次元配列の初期化
 		field[y][0] = 8;
 		for(x = 1; x <11 ; x++){
 			field[y][x] = 0;
@@ -38,12 +41,15 @@ int main(void)
 	for(x = 0; x <12 ; x++){
 		field[20][x] = 8;
 	}
-	print_sc(field);
 
-	refresh();
 
-	timeout(-1);
-	getch();
+	while(1){
+		scr = Get();
+		if (Title(scr) == 'q')break;
+		while(1){
+			if (Game(field) == 'q')break;
+		}
+	}
 
 	endwin();
 	free(field);

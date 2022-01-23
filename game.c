@@ -35,9 +35,9 @@ void Print_sc(FIELD) //2次元配列をもとにフィールドを表示する
 	}
 }
 
-void Random_mino(int random, FIELD, int y, int x, int type)
+void Random_mino(int shape, FIELD, int y, int x, int type)
 {
-	switch(random){
+	switch(shape){
 		case 1:
 			I_mino(field, y, x, type);
 		case 2:
@@ -58,16 +58,16 @@ void Random_mino(int random, FIELD, int y, int x, int type)
 
 int Game(FIELD)
 {
-	int x, y, i, key, random;
+	int x, y, i, key, shape;
 	srand((unsigned)time(NULL));
-	random = (rand() % 7) + 1;
+	shape = (rand() % 7) + 1;
 	y = 0; 
 	x = 5;
 
 	while(1){
-		Random_mino(random, field, y, x, random);
+		Random_mino(shape, field, y, x, shape);
 		Print_sc(field);
-		Random_mino(random, field, y, x, 0);
+		Random_mino(shape, field, y, x, 0);
 		for(i = 0; i < 1000; i++){
 			timeout(1);
 			key = getch();
@@ -75,9 +75,9 @@ int Game(FIELD)
 			if(key == 'd') x = x + 1;
 			if(key == 's') y = y + 1;
 			if(y >= 18) return('q');
-			Random_mino(random, field, y, x, random);
+			Random_mino(shape, field, y, x, shape);
 			Print_sc(field);
-			Random_mino(random, field, y, x, 0);
+			Random_mino(shape, field, y, x, 0);
 		}
 		y = y + 1;
 		if(y >= 18) return('q');

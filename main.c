@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdio.h>
 #include <ncurses.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -12,6 +13,8 @@ int main(void)
 	setlocale(LC_ALL, "");
 	initscr();
 	int (*field)[12] = malloc(sizeof(int)*21*12); //21行12列の2次元配列を定義(フィールド20*10と縁)
+	int (*que)[3] = malloc(sizeof(int)*3*3);
+	int (*drow_point)[4] = malloc(sizeof(int)*2*4);
 	int x, y; //フィールド配列の縦横の変数 縦がy,横がx
 	Size *scr;
 
@@ -44,14 +47,17 @@ int main(void)
 
 
 	while(1){
+		printf("ok");
 		scr = Get();
+		List_reset(field);
 		if (Title(scr) == 'q')break;
 		while(1){
-			if (Game(field) == 'q')break;
+			if (Game(field, que, drow_point) == 'e')break;
 		}
 	}
 
 	endwin();
 	free(field);
+	free(que);
 	return(0);
 }

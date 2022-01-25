@@ -30,57 +30,118 @@ void Print_sc(FIELD) //2次元配列をもとにフィールドを表示する
 	for(x = 0; x <12 ; x++){
 		for(y = 0; y < 21; y++){
 			type = List_num(field, y, x);
-			Mino(type, y, x);
+			Drow(y, x, type);
 		}
 	}
 }
 
-void Random_mino(int shape, FIELD, int y, int x, int type)
+Size *Get()
+{
+	Size *scr;
+	scr = (Size *)malloc(sizeof(Size));
+	if(scr == NULL) return(NULL);
+	getmaxyx(stdscr, scr->h, scr->w);
+	return(scr);
+}
+
+int Random_mino(int shape, FIELD, QUE, DROW, Size *place, int r)
+{
+	int flag;
+	switch(shape){
+		case 1:
+			I_mino(drow_point, r);
+		case 2:
+			O_mino(drow_point);
+		case 3:
+			S_mino(que, drow_point, r);
+		case 4:
+			Z_mino(que, drow_point, r);
+		case 5:
+			J_mino(que, drow_point, r);
+		case 6:
+			L_mino(que, drow_point, r);
+		case 7:
+			T_mino(que, drow_point, r);
+	}
+	flag = Mino_check(field, drow_point, place);
+	switch(flag){
+		case(1):
+			Mino(field, drow_point, place, shape);
+		case(2):
+		return(2);
+		case(3):
+		return(3);
+	}
+}
+
+void Reset_mino(int shape, FIELD, QUE, DROW, Size *place, int r)
 {
 	switch(shape){
 		case 1:
-			I_mino(field, y, x, type);
+			I_mino(drow_point, r);
 		case 2:
-			O_mino(field, y, x, type);
+			O_mino(drow_point);
 		case 3:
-			S_mino(field, y, x, type);
+			S_mino(que, drow_point, r);
 		case 4:
-			Z_mino(field, y, x, type);
+			Z_mino(que, drow_point, r);
 		case 5:
-			J_mino(field, y, x, type);
+			J_mino(que, drow_point, r);
 		case 6:
-			L_mino(field, y, x, type);
+			L_mino(que, drow_point, r);
 		case 7:
-			T_mino(field, y, x, type);
+			T_mino(que, drow_point, r);
 	}
-
+	Mino(field, drow_point, place, 0);
 }
 
-int Game(FIELD)
+int Game(FIELD, QUE, DROW)
 {
-	int x, y, i, key, shape;
+	int r, i, flag, key, shape;
+	Size *place;
+	Move *old;
 	srand((unsigned)time(NULL));
 	shape = (rand() % 7) + 1;
-	y = 0; 
-	x = 5;
+	Y = 1; 
+	X = 5;
+	r = 0;
+	old -> y = 0;
+	old -> x = 0;
+	old -> r = 0;
 
+	Random_mino(shape, field, que, drow_point, place, r);
+	Print_sc(field);
+	Reset_mino(shape, field, que, drow_point, place, r);
 	while(1){
-		Random_mino(shape, field, y, x, shape);
-		Print_sc(field);
-		Random_mino(shape, field, y, x, 0);
+		old -> y = Y;
+		old -> x = X;
+		old -> r = r;
 		for(i = 0; i < 1000; i++){
 			timeout(1);
 			key = getch();
-			if(key == 'a') x = x - 1;
-			if(key == 'd') x = x + 1;
-			if(key == 's') y = y + 1;
-			if(y >= 18) return('q');
-			Random_mino(shape, field, y, x, shape);
+			if(key == 'a') X = X - 1;
+			if(key == 'd') X = X + 1;
+			if(key == 's') Y = Y + 1;
+			if(key == 'q') r = r + 1;
+			if(key == 'e') r = r + 3;
+			if(key == 'p')return('e') ;
+			r = r % 4;
+			flag = Random_mino(shape, field, que, drow_point, place, r);
+			if(flag == 3)break;
+			if(flag == 2){
+				Y = old -> y;
+				X = old -> x;
+				r = old -> r;
+			}
 			Print_sc(field);
-			Random_mino(shape, field, y, x, 0);
+			Reset_mino(shape, field, que, drow_point, place, r);
 		}
-		y = y + 1;
-		if(y >= 18) return('q');
+		if(flag == 3)break;
+		Y = Y + 1;
+		flag = Random_mino(shape, field, que, drow_point, place, r);
+		if(flag == 3)break;
 		Print_sc(field);
+		Reset_mino(shape, field, que, drow_point, place, r);
 	}
+	free(drow_point);
 }

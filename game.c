@@ -44,7 +44,7 @@ Size *Get()
 	return(scr);
 }
 
-int Random_mino(int shape, FIELD, QUE, DROW, Size *place, int r)
+int Random_mino(int shape, FIELD, DROW, Size *place, int r)
 {
 	int flag;
 	switch(shape){
@@ -53,28 +53,28 @@ int Random_mino(int shape, FIELD, QUE, DROW, Size *place, int r)
 		case 2:
 			O_mino(drow_point);
 		case 3:
-			S_mino(que, drow_point, r);
+			S_mino(drow_point, r);
 		case 4:
-			Z_mino(que, drow_point, r);
+			Z_mino(drow_point, r);
 		case 5:
-			J_mino(que, drow_point, r);
+			J_mino(drow_point, r);
 		case 6:
-			L_mino(que, drow_point, r);
+			L_mino(drow_point, r);
 		case 7:
-			T_mino(que, drow_point, r);
+			T_mino(drow_point, r);
 	}
 	flag = Mino_check(field, drow_point, place);
 	switch(flag){
 		case(1):
 			Mino(field, drow_point, place, shape);
 		case(2):
-		return(2);
+			return(2);
 		case(3):
-		return(3);
+			return(3);
 	}
 }
 
-void Reset_mino(int shape, FIELD, QUE, DROW, Size *place, int r)
+void Reset_mino(int shape, FIELD, DROW, Size *place, int r)
 {
 	switch(shape){
 		case 1:
@@ -82,26 +82,28 @@ void Reset_mino(int shape, FIELD, QUE, DROW, Size *place, int r)
 		case 2:
 			O_mino(drow_point);
 		case 3:
-			S_mino(que, drow_point, r);
+			S_mino(drow_point, r);
 		case 4:
-			Z_mino(que, drow_point, r);
+			Z_mino(drow_point, r);
 		case 5:
-			J_mino(que, drow_point, r);
+			J_mino(drow_point, r);
 		case 6:
-			L_mino(que, drow_point, r);
+			L_mino(drow_point, r);
 		case 7:
-			T_mino(que, drow_point, r);
+			T_mino(drow_point, r);
 	}
 	Mino(field, drow_point, place, 0);
 }
 
-int Game(FIELD, QUE, DROW)
+int Game(FIELD, DROW)
 {
 	int r, i, flag, key, shape;
 	Size *place;
 	Move *old;
-	srand((unsigned)time(NULL));
-	shape = (rand() % 7) + 1;
+	//srand((unsigned int)time(NULL));
+	//shape = rand() % 7 + 1;
+	shape = 1;
+	flag = 0;
 	Y = 1; 
 	X = 5;
 	r = 0;
@@ -109,9 +111,9 @@ int Game(FIELD, QUE, DROW)
 	old -> x = 0;
 	old -> r = 0;
 
-	Random_mino(shape, field, que, drow_point, place, r);
+	Random_mino(shape, field, drow_point, place, r);
 	Print_sc(field);
-	Reset_mino(shape, field, que, drow_point, place, r);
+	Reset_mino(shape, field, drow_point, place, r);
 	while(1){
 		old -> y = Y;
 		old -> x = X;
@@ -126,7 +128,7 @@ int Game(FIELD, QUE, DROW)
 			if(key == 'e') r = r + 3;
 			if(key == 'p')return('e') ;
 			r = r % 4;
-			flag = Random_mino(shape, field, que, drow_point, place, r);
+			flag = Random_mino(shape, field, drow_point, place, r);
 			if(flag == 3)break;
 			if(flag == 2){
 				Y = old -> y;
@@ -134,14 +136,14 @@ int Game(FIELD, QUE, DROW)
 				r = old -> r;
 			}
 			Print_sc(field);
-			Reset_mino(shape, field, que, drow_point, place, r);
+			Reset_mino(shape, field, drow_point, place, r);
 		}
 		if(flag == 3)break;
 		Y = Y + 1;
-		flag = Random_mino(shape, field, que, drow_point, place, r);
+		flag = Random_mino(shape, field, drow_point, place, r);
 		if(flag == 3)break;
 		Print_sc(field);
-		Reset_mino(shape, field, que, drow_point, place, r);
+		Reset_mino(shape, field, drow_point, place, r);
 	}
 	free(drow_point);
 }

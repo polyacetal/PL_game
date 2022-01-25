@@ -38,8 +38,9 @@ void* O_mino(DROW) //リストにO型を配置しOミノを再現する
 	drow_point[3][2] = 1;
 }
 
-void* S_mino(QUE, DROW, int r) //リストにS型を配置しSミノを再現する
+void* S_mino(DROW, int r) //リストにS型を配置しSミノを再現する
 {
+	int (*que)[3] = malloc(sizeof(int)*3*3);
 	que[0][1] = 1;
 	que[1][1] = 1;
 	que[1][2] = 1;
@@ -48,10 +49,12 @@ void* S_mino(QUE, DROW, int r) //リストにS型を配置しSミノを再現す
 		Rotate_que(que);
 	}
 	Drow_point(que, drow_point);
+	free(que);
 }
 
-void* Z_mino(QUE, DROW, int r) //リストにZ型を配置しZミノを再現する
+void* Z_mino(DROW, int r) //リストにZ型を配置しZミノを再現する
 {
+	int (*que)[3] = malloc(sizeof(int)*3*3);
 	que[0][1] = 1;
 	que[1][1] = 1;
 	que[1][0] = 1;
@@ -60,10 +63,12 @@ void* Z_mino(QUE, DROW, int r) //リストにZ型を配置しZミノを再現す
 		Rotate_que(que);
 	}
 	Drow_point(que, drow_point);
+	free(que);
 }
 
-void* J_mino(QUE, DROW, int r) //リストにJ型を配置しJミノを再現する
+void* J_mino(DROW, int r) //リストにJ型を配置しJミノを再現する
 {
+	int (*que)[3] = malloc(sizeof(int)*3*3);
 	que[0][1] = 1;
 	que[1][1] = 1;
 	que[2][1] = 1;
@@ -72,10 +77,12 @@ void* J_mino(QUE, DROW, int r) //リストにJ型を配置しJミノを再現す
 		Rotate_que(que);
 	}
 	Drow_point(que, drow_point);
+	free(que);
 }
 
-void* L_mino(QUE, DROW, int r) //リストにL型を配置しLミノを再現する
+void* L_mino(DROW, int r) //リストにL型を配置しLミノを再現する
 {
+	int (*que)[3] = malloc(sizeof(int)*3*3);
 	que[0][1] = 1;
 	que[1][1] = 1;
 	que[2][1] = 1;
@@ -84,10 +91,12 @@ void* L_mino(QUE, DROW, int r) //リストにL型を配置しLミノを再現す
 		Rotate_que(que);
 	}
 	Drow_point(que, drow_point);
+	free(que);
 }
 
-void* T_mino(QUE, DROW, int r) //リストにT型を配置しTミノを再現する
+void* T_mino(DROW, int r) //リストにT型を配置しTミノを再現する
 {
+	int (*que)[3] = malloc(sizeof(int)*3*3);
 	que[0][1] = 1;
 	que[1][0] = 1;
 	que[1][1] = 1;
@@ -96,12 +105,13 @@ void* T_mino(QUE, DROW, int r) //リストにT型を配置しTミノを再現す
 		Rotate_que(que);
 	}
 	Drow_point(que, drow_point);
+	free(que);
 }
 
 void Mino(FIELD, DROW, Size *place, int type)
 {
 	for(int i = 0; i < 4; i++){
-		field[Y + drow_point[i][1]][X + drow_point[i][2]] = type;
+		field[Y + drow_point[i][0]][X + drow_point[i][1]] = type;
 	}
 }
 
@@ -111,12 +121,12 @@ int Mino_check(FIELD, DROW, Size *place)
 	int y_max;
 	int i;
 	for(i = 0; i < 4; i++){
-		if(y_max < drow_point[i][1])
-		y_max = drow_point[i][1];
+		if(y_max < drow_point[i][0])
+		y_max = drow_point[i][0];
 	}
 	for(i = 0; i < 4; i++){
-		flag = field[Y + drow_point[i][1]][X + drow_point[i][2]];
-		if(flag != 0 && y_max == i) return(3);
+		flag = field[Y + drow_point[i][0]][X + drow_point[i][1]];
+		if(flag != 0 && y_max == drow_point[i][0]) return(3);
 		if(flag != 0) return(2);
 	}
 	return(1);
@@ -167,11 +177,10 @@ void* Rotate_que(QUE){
 } 
 
 void* Drow_point(QUE, DROW){
-	int x, y, i;
-	i = 0;
+	int i = 0;
 
-	for(y = 0; y < 3; y++){
-		for(x = 0; x < 3; x++){
+	for(int y = 0; y < 3; y++){
+		for(int x = 0; x < 3; x++){
 			if(que[y][x] == 1){
 				drow_point[i][0] = y;
 				drow_point[i][1] = x;

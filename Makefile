@@ -3,6 +3,9 @@ all: tetris
 tetris: main.o screen.o game.o
 	gcc main.o screen.o game.o -lncursesw -ltinfo -o tetris
 
+test: main.o screen.o game.o
+	gcc -g main.o screen.o game.o -lncursesw -ltinfo
+
 main.o: main.c screen.h game.h
 
 screen.o: screen.c screen.h game.h
@@ -23,4 +26,4 @@ distclean: clean
 
 .SUFIXES: .c.o
 
-.PHONY: all
+.PHONY: all test tgz clean distclean

@@ -74,6 +74,7 @@ int Random_mino(int shape, FIELD, DROW, Size *place, int r)
 	switch(flag){
 		case(1):
 			Mino(field, drow_point, place, shape);
+			return(0);
 		case(2):
 			return(2);
 		case(3):
@@ -144,14 +145,14 @@ int Game(FIELD, DROW)
 			if(key == 'p')return('e') ;
 			r = r % 4;
 			flag = Random_mino(shape, field, drow_point, place, r);
+			Print_sc(field);
+			Reset_mino(shape, field, drow_point, place, r);
 			if(flag == 3)break;
 			if(flag == 2){
 				Y = old -> y;
 				X = old -> x;
 				r = old -> r;
 			}
-			Print_sc(field);
-			Reset_mino(shape, field, drow_point, place, r);
 		}
 		if(flag == 3)break;
 		Y = Y + 1;

@@ -56,5 +56,6 @@ int main(void)
 
 	endwin();
 	free(field);
+	free(drow_point);
 	return(0);
 }

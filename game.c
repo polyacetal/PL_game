@@ -50,18 +50,25 @@ int Random_mino(int shape, FIELD, DROW, Size *place, int r)
 	switch(shape){
 		case 1:
 			I_mino(drow_point, r);
+			break;
 		case 2:
 			O_mino(drow_point);
+			break;
 		case 3:
 			S_mino(drow_point, r);
+			break;
 		case 4:
 			Z_mino(drow_point, r);
+			break;
 		case 5:
 			J_mino(drow_point, r);
+			break;
 		case 6:
 			L_mino(drow_point, r);
+			break;
 		case 7:
 			T_mino(drow_point, r);
+			break;
 	}
 	flag = Mino_check(field, drow_point, place);
 	switch(flag){
@@ -79,18 +86,25 @@ void Reset_mino(int shape, FIELD, DROW, Size *place, int r)
 	switch(shape){
 		case 1:
 			I_mino(drow_point, r);
+			break;
 		case 2:
 			O_mino(drow_point);
+			break;
 		case 3:
 			S_mino(drow_point, r);
+			break;
 		case 4:
 			Z_mino(drow_point, r);
+			break;
 		case 5:
 			J_mino(drow_point, r);
+			break;
 		case 6:
 			L_mino(drow_point, r);
+			break;
 		case 7:
 			T_mino(drow_point, r);
+			break;
 	}
 	Mino(field, drow_point, place, 0);
 }
@@ -100,9 +114,10 @@ int Game(FIELD, DROW)
 	int r, i, flag, key, shape;
 	Size *place;
 	Move *old;
-	//srand((unsigned int)time(NULL));
-	//shape = rand() % 7 + 1;
-	shape = 1;
+	place = (Size *)malloc(sizeof(Size));
+	old = (Move *)malloc(sizeof(Move));
+	srand((unsigned int)time(NULL));
+	shape = rand() % 7 + 1;
 	flag = 0;
 	Y = 1; 
 	X = 5;
@@ -145,5 +160,4 @@ int Game(FIELD, DROW)
 		Print_sc(field);
 		Reset_mino(shape, field, drow_point, place, r);
 	}
-	free(drow_point);
 }

@@ -47,11 +47,8 @@ int main(void)
 
 	while(1){
 		scr = Get();
-		List_reset(field);
 		if (Title(scr) == 'q')break;
-		while(1){
-			if (Game(field, drow_point) == 'e')break;
-		}
+		Game(field, drow_point);
 	}
 
 	endwin();

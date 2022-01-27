@@ -16,11 +16,17 @@ int List_num(FIELD, int y, int x) //指定されたy行x列の要素を返す
 void* List_reset(FIELD) //2次元配列を縁枠だけの初期状態に戻す
 {
 	int x, y;
-	for(y = 0; y < 19; y++){
+	for(y = 0; y < 20; y++){
+		field[y][0] = 8;
 		for(x = 1; x < 11; x++){
 			field[y][x] = 0;
 		}
+		field[y][11] = 8;
 	}
+	for(x = 0; x < 12; x++){
+		field[20][x] = 8;
+	}
+	return(field);
 }
 
 void Print_sc(FIELD) //2次元配列をもとにフィールドを表示する
@@ -110,18 +116,16 @@ void Reset_mino(int shape, FIELD, DROW, Size *place, int r)
 	Mino(field, drow_point, place, 0);
 }
 
-int Game(FIELD, DROW)
+int Mino_drop(FIELD, DROW, int shape)
 {
-	int r, i, flag, key, shape;
+	int r, i, flag, key;
 	Size *place;
 	Move *old;
 	place = (Size *)malloc(sizeof(Size));
 	old = (Move *)malloc(sizeof(Move));
-	srand((unsigned int)time(NULL));
-	shape = rand() % 7 + 1;
 	flag = 0;
 	Y = 1; 
-	X = 5;
+	X = 4;
 	r = 0;
 	old -> y = 0;
 	old -> x = 0;
@@ -135,6 +139,9 @@ int Game(FIELD, DROW)
 		old -> x = X;
 		old -> r = r;
 		for(i = 0; i < 1000; i++){
+			old -> y = Y;
+			old -> x = X;
+			old -> r = r;
 			timeout(1);
 			key = getch();
 			if(key == 'a') X = X - 1;
@@ -142,17 +149,17 @@ int Game(FIELD, DROW)
 			if(key == 's') Y = Y + 1;
 			if(key == 'q') r = r + 1;
 			if(key == 'e') r = r + 3;
-			if(key == 'p')return('e') ;
+			if(key == 'p')return(0) ;
 			r = r % 4;
 			flag = Random_mino(shape, field, drow_point, place, r);
-			Print_sc(field);
-			Reset_mino(shape, field, drow_point, place, r);
 			if(flag == 3)break;
 			if(flag == 2){
 				Y = old -> y;
 				X = old -> x;
 				r = old -> r;
 			}
+			Print_sc(field);
+			Reset_mino(shape, field, drow_point, place, r);
 		}
 		if(flag == 3)break;
 		Y = Y + 1;
@@ -161,4 +168,20 @@ int Game(FIELD, DROW)
 		Print_sc(field);
 		Reset_mino(shape, field, drow_point, place, r);
 	}
+	return(1);
+}
+
+int Game(FIELD, DROW)
+{
+	int flag, shape;		
+	field = List_reset(field);
+	srand((unsigned int)time(NULL));
+	
+
+	while(1){
+	shape = rand() % 7 + 1;
+	flag = Mino_drop(field, drow_point, shape);
+	if(flag == 0)break;
+	}
+	return(flag);
 }

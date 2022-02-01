@@ -40,72 +40,207 @@ void* O_mino(DROW) //リストにO型を配置しOミノを再現する
 
 void* S_mino(DROW, int r) //リストにS型を配置しSミノを再現する
 {
-	int (*que)[3] = malloc(sizeof(int)*3*3);
-	que[0][1] = 1;
-	que[1][1] = 1;
-	que[1][2] = 1;
-	que[2][2] = 1;
-	for(int i = 0; i < r; i++){
-		Rotate_que(que);
-	}
-	Drow_point(que, drow_point);
-	free(que);
+	if(r % 4 == 0){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 2;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 1){
+		drow_point[0][0] = 1;
+		drow_point[0][1] = 2;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 2;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 0;
+	}else if(r % 4 == 2){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 0;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	}else if(r % 4 == 3){
+		drow_point[0][0] = 1;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 0;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 0;
+		drow_point[3][1] = 2;
+	};
 }
 
 void* Z_mino(DROW, int r) //リストにZ型を配置しZミノを再現する
 {
-	int (*que)[3] = malloc(sizeof(int)*3*3);
-	que[0][1] = 1;
-	que[1][1] = 1;
-	que[1][0] = 1;
-	que[2][0] = 1;
-	for(int i = 0; i < r; i++){
-		Rotate_que(que);
-	}
-	Drow_point(que, drow_point);
-	free(que);
+	if(r % 4 == 0){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 0;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 0;
+	}else if(r % 4 == 1){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 0;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 1;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 2){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 2;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 2;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	}else if(r % 4 == 3){
+		drow_point[0][0] = 1;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 2;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 2;
+	};
 }
 
 void* J_mino(DROW, int r) //リストにJ型を配置しJミノを再現する
 {
-	int (*que)[3] = malloc(sizeof(int)*3*3);
-	que[0][1] = 1;
-	que[1][1] = 1;
-	que[2][1] = 1;
-	que[2][0] = 1;
-	for(int i = 0; i < r; i++){
-		Rotate_que(que);
-	}
-	Drow_point(que, drow_point);
-	free(que);
+	if(r % 4 == 0){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 0;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 1;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 1){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 0;
+		drow_point[1][1] = 2;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	}else if(r % 4 == 2){
+		drow_point[0][0] = 1;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 2;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 3){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 2;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 0;
+	};
 }
 
 void* L_mino(DROW, int r) //リストにL型を配置しLミノを再現する
 {
-	int (*que)[3] = malloc(sizeof(int)*3*3);
-	que[0][1] = 1;
-	que[1][1] = 1;
-	que[2][1] = 1;
-	que[2][2] = 1;
-	for(int i = 0; i < r; i++){
-		Rotate_que(que);
-	}
-	Drow_point(que, drow_point);
-	free(que);
+	if(r % 4 == 0){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 2;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 0;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 1;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 1){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 2;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 2){
+		drow_point[0][0] = 1;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 2;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 0;
+	}else if(r % 4 == 3){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 0;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	};
 }
 
 void* T_mino(DROW, int r) //リストにT型を配置しTミノを再現する
 {
-	int (*que)[3] = malloc(sizeof(int)*3*3);
-	que[0][1] = 1;
-	que[1][0] = 1;
-	que[1][1] = 1;
-	que[1][2] = 1;
-	for(int i = 0; i < r; i++){
-		Rotate_que(que);
-	}
-	Drow_point(que, drow_point);
-	free(que);
+	if(r % 4 == 0){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 0;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 1;
+		drow_point[3][1] = 2;
+	}else if(r % 4 == 1){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 2;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	}else if(r % 4 == 2){
+		drow_point[0][0] = 1;
+		drow_point[0][1] = 0;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 1;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 2;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	}else if(r % 4 == 3){
+		drow_point[0][0] = 0;
+		drow_point[0][1] = 1;
+		drow_point[1][0] = 1;
+		drow_point[1][1] = 0;
+		drow_point[2][0] = 1;
+		drow_point[2][1] = 1;
+		drow_point[3][0] = 2;
+		drow_point[3][1] = 1;
+	};
 }
 
 void Mino(FIELD, DROW, Size *place, int type)
@@ -160,34 +295,4 @@ int Title(Size *scr)
 	key = getch();
 	if(key == 'q') free(scr);
 	return(key);
-}
-
-void* Rotate_que(QUE){
-	int x, y;
-	int rotate_que[3][3] = {}; 
-
-	for(y = 0; y < 3; y ++){
-		for(x = 0; x < 3; x ++){
-			rotate_que[y][x] = que[x][((y + 1)* 2)% 3];
-		}
-	}
-	for(y = 0; y < 3; y ++){
-		for(x = 0; x < 3; x ++){
-			que[y][x] = rotate_que[y][x];
-		}
-	}
-} 
-
-void* Drow_point(QUE, DROW){
-	int i = 0;
-
-	for(int y = 0; y < 3; y++){
-		for(int x = 0; x < 3; x++){
-			if(que[y][x] == 1){
-				drow_point[i][0] = y;
-				drow_point[i][1] = x;
-				i++;
-			}
-		}
-	}
 }

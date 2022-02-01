@@ -50,7 +50,7 @@ Size *Get()
 	return(scr);
 }
 
-int Random_mino(int shape, FIELD, DROW, Size *place, int r)
+int Random_mino(int shape, FIELD, DROW, Size *place, int r, Move *old)
 {
 	int flag;
 	switch(shape){
@@ -103,7 +103,7 @@ int Mino_drop(FIELD, DROW, int shape)
 	old -> x = 0;
 	old -> r = 0;
 
-	Random_mino(shape, field, drow_point, place, r);
+	Random_mino(shape, field, drow_point, place, r, old);
 	Print_sc(field);
 	Mino(field, drow_point, place, 0);
 	while(1){
@@ -119,11 +119,11 @@ int Mino_drop(FIELD, DROW, int shape)
 			if(key == 'a') X = X - 1;
 			if(key == 'd') X = X + 1;
 			if(key == 's') Y = Y + 1;
-			if(key == 'q') r = r + 1;
-			if(key == 'e') r = r + 3;
+			if(key == 'e') r = r + 1;
+			if(key == 'q') r = r + 3;
 			if(key == 'p') return(0);
 			r = r % 4;
-			flag = Random_mino(shape, field, drow_point, place, r);
+			flag = Random_mino(shape, field, drow_point, place, r, old);
 			if(flag == 3){
 				Y = old -> y;
 				X = old -> x;
@@ -156,7 +156,7 @@ int Game(FIELD, DROW)
 	while(1){
 	Print_sc(field);
 	//shape = rand() % 7 + 1;
-	shape = 3;
+	shape = 6;
 	flag = Mino_drop(field, drow_point, shape);
 	if(flag == 0)break;
 	}

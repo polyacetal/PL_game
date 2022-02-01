@@ -88,34 +88,6 @@ int Random_mino(int shape, FIELD, DROW, Size *place, int r)
 	}
 }
 
-void Reset_mino(int shape, FIELD, DROW, Size *place, int r)
-{
-	switch(shape){
-		case 1:
-			I_mino(drow_point, r);
-			break;
-		case 2:
-			O_mino(drow_point);
-			break;
-		case 3:
-			S_mino(drow_point, r);
-			break;
-		case 4:
-			Z_mino(drow_point, r);
-			break;
-		case 5:
-			J_mino(drow_point, r);
-			break;
-		case 6:
-			L_mino(drow_point, r);
-			break;
-		case 7:
-			T_mino(drow_point, r);
-			break;
-	}
-	Mino(field, drow_point, place, 0);
-}
-
 int Mino_drop(FIELD, DROW, int shape)
 {
 	int r, i, flag, key;
@@ -133,7 +105,7 @@ int Mino_drop(FIELD, DROW, int shape)
 
 	Random_mino(shape, field, drow_point, place, r);
 	Print_sc(field);
-	Reset_mino(shape, field, drow_point, place, r);
+	Mino(field, drow_point, place, 0);
 	while(1){
 		old -> y = Y;
 		old -> x = X;
@@ -149,37 +121,42 @@ int Mino_drop(FIELD, DROW, int shape)
 			if(key == 's') Y = Y + 1;
 			if(key == 'q') r = r + 1;
 			if(key == 'e') r = r + 3;
-			if(key == 'p')return(0) ;
+			if(key == 'p') return(0);
 			r = r % 4;
 			flag = Random_mino(shape, field, drow_point, place, r);
-			if(flag == 3)break;
+			if(flag == 3){
+				Y = old -> y;
+				X = old -> x;
+				r = old -> r;
+				return(1);
+			}
 			if(flag == 2){
 				Y = old -> y;
 				X = old -> x;
 				r = old -> r;
 			}
 			Print_sc(field);
-			Reset_mino(shape, field, drow_point, place, r);
+			Mino(field, drow_point, place, 0);
 		}
-		if(flag == 3)break;
 		Y = Y + 1;
-		flag = Random_mino(shape, field, drow_point, place, r);
-		if(flag == 3)break;
-		Print_sc(field);
-		Reset_mino(shape, field, drow_point, place, r);
 	}
 	return(1);
+	free(place);
+	free(old);
 }
 
 int Game(FIELD, DROW)
 {
-	int flag, shape;		
+	int flag, shape;	
+	flag = 1;	
 	field = List_reset(field);
 	srand((unsigned int)time(NULL));
 	
 
 	while(1){
-	shape = rand() % 7 + 1;
+	Print_sc(field);
+	//shape = rand() % 7 + 1;
+	shape = 3;
 	flag = Mino_drop(field, drow_point, shape);
 	if(flag == 0)break;
 	}

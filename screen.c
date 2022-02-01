@@ -153,6 +153,8 @@ int Title(Size *scr)
 	erase();
 	attron(COLOR_PAIR(8) | A_BOLD);
 	mvaddstr(H/2 - 4, W/2 - 12, "落ちリス(商標登録回避)");
+	attron(COLOR_PAIR(4) | A_BOLD);
+	mvaddstr(H/2 + 2, W/2 - 11, "Prease push any key!");
 	refresh();
 	timeout(-1);
 	key = getch();

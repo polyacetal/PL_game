@@ -15,6 +15,7 @@ int main(void)
 	int (*field)[12] = malloc(sizeof(int)*21*12); //21行12列の2次元配列を定義(フィールド20*10と縁)
 	int (*drow_point)[4] = malloc(sizeof(int)*2*4);
 	int x, y; //フィールド配列の縦横の変数 縦がy,横がx
+	int flag;
 	Size *scr;
 
 	noecho();
@@ -48,7 +49,8 @@ int main(void)
 	while(1){
 		scr = Get();
 		if (Title(scr) == 'q')break;
-		Game(field, drow_point);
+		flag = Game(field, drow_point);
+		//if (flag == 'p') Pause();
 		if (Game_over(scr) == 'q')break;
 	}
 

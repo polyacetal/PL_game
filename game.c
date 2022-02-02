@@ -121,7 +121,7 @@ int Mino_drop(FIELD, DROW, int shape)
 			if(key == 's') Y = Y + 1;
 			if(key == 'e') r = r + 1;
 			if(key == 'q') r = r + 3;
-			if(key == 'p') return(0);
+			if(key == 'p') return('p');
 			r = r % 4;
 			flag = Random_mino(shape, field, drow_point, place, r, old);
 			if(flag == 3){
@@ -167,9 +167,44 @@ int Game(FIELD, DROW)
 	while(1){
 	Print_sc(field);
 	shape = rand() % 7 + 1;
-	//shape = 1;
 	flag = Mino_drop(field, drow_point, shape);
-	if(flag == 0)break;
+	Clear_len(field);
+	if(Death(field) == 0)break;
+	if(flag == 'p')return('p');
 	}
-	return(flag);
+	return(0);
+}
+
+void Clear_len(FIELD){
+	int sum, oldy, x, y;
+	sum = 1;
+	oldy = 0;
+	for(y = 19; y >= 0; y--){
+		for(x = 1; x < 11; x++){
+			if(field[y][x] == 0) sum = 0;
+		}
+		if(sum == 1){
+			for(x = 1; x < 11; x++){
+				field[y][x] = 0;
+			}
+			for(oldy = y; oldy >= 1; oldy--){
+				for(x = 1; x < 11; x++){
+					field[oldy][x] = field[oldy - 1][x];
+				}
+			}
+			for(x = 1; x < 11; x++){
+				field[0][x] = 0;
+			}
+		}
+		sum = 1;
+	}
+}
+
+int Death(FIELD){
+	int sum = 0;
+	for(int x = 1; x < 11; x++){
+		sum += field[1][x];
+	}
+	if(sum != 0)return(0);
+	return(1);
 }

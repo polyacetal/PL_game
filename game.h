@@ -19,4 +19,6 @@ extern void Print_sc(FIELD);
 extern Size *Get();
 extern int Random_mino(int shape, FIELD, DROW, Size *place, int r, Move *old);
 extern int Game(FIELD, DROW);
+extern void Clear_len(FIELD);
+extern int Death(FIELD);
 #endif

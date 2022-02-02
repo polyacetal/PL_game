@@ -12,6 +12,5 @@ extern void Mino(FIELD, DROW, Size *place,  int type);
 extern int Mino_check(FIELD, DROW, Size *place, int r, Move *old);
 extern void Drow(int y, int x, int type);
 extern int Title(Size *scr);
-extern void* Rotate_que(QUE);
-extern void* Drow_point(QUE, DROW);
+extern int Game_over(Size *scr);
 #endif

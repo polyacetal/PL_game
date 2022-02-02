@@ -84,6 +84,9 @@ int Random_mino(int shape, FIELD, DROW, Size *place, int r, Move *old)
 		case(2):
 			return(2);
 		case(3):
+			X = old->x;
+			Y = old->y;
+			Mino(field, drow_point, place, shape);
 			return(3);
 	}
 }

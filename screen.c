@@ -295,3 +295,20 @@ int Title(Size *scr)
 	if(key == 'q') free(scr);
 	return(key);
 }
+
+int Game_over(Size *scr)
+{
+	int key;
+	if (scr == NULL) return('q');
+	erase();
+	attron(COLOR_PAIR(8) | A_BOLD);
+	mvaddstr(H/2 - 4, W/2 - 5, "GAME OVER");
+	attron(COLOR_PAIR(4) | A_BOLD);
+	mvaddstr(H/2 - 2, W/2 - 11, "Prease push any key!");
+	mvaddstr(H/2 - 1, W/2 - 6, "Go to title.");
+	refresh();
+	timeout(-1);
+	key = getch();
+	if(key == 'q') free(scr);
+	return(key);
+}

@@ -49,6 +49,7 @@ int main(void)
 		scr = Get();
 		if (Title(scr) == 'q')break;
 		Game(field, drow_point);
+		if (Game_over(scr) == 'q')break;
 	}
 
 	endwin();

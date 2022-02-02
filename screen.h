@@ -9,7 +9,7 @@ extern void* J_mino(DROW, int r);
 extern void* L_mino(DROW, int r);
 extern void* T_mino(DROW, int r);
 extern void Mino(FIELD, DROW, Size *place,  int type);
-extern int Mino_check(FIELD, DROW, Size *place);
+extern int Mino_check(FIELD, DROW, Size *place, int r, Move *old);
 extern void Drow(int y, int x, int type);
 extern int Title(Size *scr);
 extern void* Rotate_que(QUE);

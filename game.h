@@ -17,7 +17,6 @@ extern int List_num(FIELD, int y, int x);
 extern void* List_reset(FIELD);
 extern void Print_sc(FIELD);
 extern Size *Get();
-extern int Random_mino(int shape, FIELD, DROW, Size *place, int r);
-extern void Reset_mino(int shape, FIELD, DROW, Size *place, int r);
+extern int Random_mino(int shape, FIELD, DROW, Size *place, int r, Move *old);
 extern int Game(FIELD, DROW);
 #endif

@@ -35,7 +35,7 @@ void* O_mino(DROW) //リストにO型を配置しOミノを再現する
 	drow_point[2][0] = 1;
 	drow_point[2][1] = 0;
 	drow_point[3][0] = 1;
-	drow_point[3][2] = 1;
+	drow_point[3][1] = 1;
 }
 
 void* S_mino(DROW, int r) //リストにS型を配置しSミノを再現する
@@ -250,19 +250,18 @@ void Mino(FIELD, DROW, Size *place, int type)
 	}
 }
 
-int Mino_check(FIELD, DROW, Size *place)
+int Mino_check(FIELD, DROW, Size *place, int r, Move *old)
 {
 	int flag;
 	int y_max;
 	int i;
-	for(i = 0; i < 4; i++){
-		if(y_max < drow_point[i][0])
-		y_max = drow_point[i][0];
-	}
-	for(i = 0; i < 4; i++){
+	for(i = 0; i< 4; i++){
 		flag = field[Y + drow_point[i][0]][X + drow_point[i][1]];
-		if(flag != 0 && y_max == drow_point[i][0]) return(3);
-		if(flag != 0) return(2);
+		if(flag != 0){
+			if(Y - (old -> y) != 0)return(3);
+			if(X - (old -> x) != 0)return(2);
+			if(r - (old -> r) != 0)return(2);
+		}
 	}
 	return(1);
 }

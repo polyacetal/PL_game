@@ -125,6 +125,7 @@ int Mino_drop(FIELD, DROW, int shape)
 				Y = old -> y;
 				X = old -> x;
 				r = old -> r;
+				Print_sc(field);
 				return(1);
 			}
 			if(flag == 2){
@@ -141,6 +142,7 @@ int Mino_drop(FIELD, DROW, int shape)
 			Y = old -> y;
 			X = old -> x;
 			r = old -> r;
+			Print_sc(field);
 			return(1);
 		}
 		Print_sc(field);

@@ -13,7 +13,7 @@ game.o: game.c game.h screen.h
 	gcc -c $<
 
 tgz: distclean
-	cd ..; tar zcvf TETRIS-ver.0.0.0.tgz PL_game
+	cd ..; tar zcvf TETRIS-ver.0.1.0.tgz PL_game
 
 clean: 
 	-rm *.o
